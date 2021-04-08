@@ -10,5 +10,16 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg) => {
-  if (msg.content === 'test') msg.reply('Test successfully completed');
+  msg.content = msg.content.toLowerCase();
+  if (msg.content[0] + msg.content[1] + msg.content[2] !== 'rpg') return;
+  const content = {
+    user: {
+      id: msg.author.id,
+      username: msg.author.username,
+      discriminator: msg.author.discriminator,
+    },
+    msg: msg.content,
+  };
+  console.log(content);
+  // if (msg.content === 'test') msg.reply('Test successfully completed');
 });
