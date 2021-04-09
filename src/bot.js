@@ -6,7 +6,6 @@ const embed = new Discord.MessageEmbed();
 
 const commands = require('./functions/.commands');
 const reduceMessage = require('./functions/reduceMessage');
-const makeEmbed = require('./functions/makeEmbed');
 
 client.login(process.env.BOT_TOKEN);
 
@@ -48,6 +47,7 @@ client.on('message', (msg) => {
             `https://cdn.discordapp.com/avatars/${process.env.BOT_ID}/${process.env.BOT_AVATAR}.png?=512`
           )
       );
+      embed.fields = []; // Clean up Fields
       break;
     case 2:
       msg.reply(res.reply);
