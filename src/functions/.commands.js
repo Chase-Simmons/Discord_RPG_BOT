@@ -15,8 +15,9 @@ const commandList = require('./commandList');
 
 // STATUS CODES
 // 0 = NORMAL
-// 1 = EMBED
-// 2 = REPLY
+// 1 = REPLY
+// 2 = EMBED NO THUMBNAIL
+// 3 = EMBED W/ THUMBNAIL
 
 function commandFilter(content) {
   switch (content.msg) {
@@ -28,7 +29,7 @@ function commandFilter(content) {
           description: 'This is a test',
           fields: [{ name: 'test1', value: 'Test successfully completed!' }],
         },
-        statusCode: 1,
+        statusCode: 3,
       };
     /*-----> TESTING <-----*/
 
@@ -36,19 +37,19 @@ function commandFilter(content) {
     case 'login':
       return {
         reply: loginUser(content.user),
-        statusCode: 2,
+        statusCode: 1,
       };
     case 'logout':
       return {
         reply: logoutUser(content.user),
-        statusCode: 2,
+        statusCode: 1,
       };
     /*-----> LOGIN/OUT <-----*/
 
     case 'register':
       return {
         reply: register(content.user),
-        statusCode: 2,
+        statusCode: 1,
       };
 
     /*-----> HELP <-----*/
@@ -57,7 +58,7 @@ function commandFilter(content) {
     case 'commands':
       return {
         reply: commandList,
-        statusCode: 1,
+        statusCode: 2,
       };
     /*-----> HELP <-----*/
 

@@ -5,6 +5,7 @@ const client = new Discord.Client();
 
 const commands = require('./functions/.commands');
 const reduceMessage = require('./functions/reduceMessage');
+let embed;
 
 client.login(process.env.BOT_TOKEN);
 
@@ -33,9 +34,39 @@ client.on('message', (msg) => {
       msg.channel.send(res.reply);
       break;
     case 1:
-      const embed = new Discord.MessageEmbed();
+      msg.reply(res.reply);
+      break;
+    case 2:
+      embed = new Discord.MessageEmbed();
 
       embed
+        .setAuthor(
+          msg.author.username,
+          `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.png?=512`
+        )
+        .setTitle(res.reply.title)
+        .setColor(3447003)
+        .addFields(res.reply.fields)
+        .setTimestamp(new Date())
+        .setFooter(
+          '© RPG BOT, By Gone.',
+          `https://cdn.discordapp.com/avatars/${process.env.BOT_ID}/${process.env.BOT_AVATAR}.png?=512`
+        );
+      if (res.reply.description !== undefined) {
+        embed.setDescription(res.reply.description);
+      }
+
+      msg.channel.send(embed);
+
+      break;
+    case 3:
+      embed = new Discord.MessageEmbed();
+
+      embed
+        .setAuthor(
+          msg.author.username,
+          `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.png?=512`
+        )
         .setTitle(res.reply.title)
         .setColor(3447003)
         .setThumbnail(
@@ -53,9 +84,6 @@ client.on('message', (msg) => {
 
       msg.channel.send(embed);
 
-      break;
-    case 2:
-      msg.reply(res.reply);
       break;
   }
 });
