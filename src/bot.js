@@ -35,5 +35,8 @@ client.on('message', (msg) => {
       const embedMessage = makeEmbed({ user: msg.author, reply: res.reply });
       msg.channel.send(embedMessage);
       break;
+    case 2:
+      msg.reply(res.reply);
+      break;
   }
 });
