@@ -3,7 +3,7 @@ require('dotenv').config('');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const commands = require('./functions/commands');
+const commands = require('./functions/.commands');
 const reduceMessage = require('./functions/reduceMessage');
 const makeEmbed = require('./functions/makeEmbed');
 

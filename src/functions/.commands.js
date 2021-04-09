@@ -5,6 +5,10 @@ const loginUser = require('./loginUser');
 const logoutUser = require('./logoutUser');
 /*-----> LOGIN/OUT <-----*/
 
+/*-----> HELP <-----*/
+const commandList = require('./commandList');
+/*-----> HELP <-----*/
+
 // STATUS CODES
 // 0 = NORMAL
 // 1 = EMBED
@@ -36,6 +40,14 @@ function commandFilter(content) {
         statusCode: 2,
       };
     /*-----> LOGIN/OUT <-----*/
+
+    /*-----> HELP <-----*/
+    case 'cd' || 'commands' || 'command' || 'cds':
+      return {
+        reply: commandList,
+        statusCode: 1,
+      };
+    /*-----> HELP <-----*/
 
     /*-----> NO MATCH <-----*/
     default:
