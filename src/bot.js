@@ -8,10 +8,12 @@ const reduceMessage = require('./functions/reduceMessage');
 
 client.login(process.env.BOT_TOKEN);
 
+//READY
 client.on('ready', () => {
   console.log('RPG BOT has successfully booted');
 });
 
+//MESSAGE
 client.on('message', (msg) => {
   // console.log(msg); /* DEBUGGER */
 

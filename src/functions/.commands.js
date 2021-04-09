@@ -5,6 +5,10 @@ const loginUser = require('./loginUser');
 const logoutUser = require('./logoutUser');
 /*-----> LOGIN/OUT <-----*/
 
+/*-----> REGISTRATION <-----*/
+const register = require('./register');
+/*-----> REGISTRATION <-----*/
+
 /*-----> HELP <-----*/
 const commandList = require('./commandList');
 /*-----> HELP <-----*/
@@ -40,6 +44,12 @@ function commandFilter(content) {
         statusCode: 2,
       };
     /*-----> LOGIN/OUT <-----*/
+
+    case 'register':
+      return {
+        reply: register(content.user),
+        statusCode: 2,
+      };
 
     /*-----> HELP <-----*/
     case 'c':
