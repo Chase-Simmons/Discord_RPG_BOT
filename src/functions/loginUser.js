@@ -15,12 +15,17 @@ const fakeDB = [
 
 function loginUser(incomingUser) {
   let match = false;
+  let rep = 'has successfully logged in.';
   fakeDB.forEach((user) => {
     if (user.id === incomingUser.id) {
       match = true;
     }
   });
-  return match;
+
+  if (match === false) {
+    rep = 'no matches found. Have you done `rpg register` yet?';
+  }
+  return rep;
 }
 
 module.exports = (incomingUser) => {

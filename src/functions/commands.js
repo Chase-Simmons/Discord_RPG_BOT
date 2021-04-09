@@ -17,17 +17,11 @@ function commandFilter(content) {
         statusCode: 1,
       };
     case 'login':
-      if (loginUser(content.user) === true) {
-        return {
-          reply: `has successfully logged in.`,
-          statusCode: 2,
-        };
-      } else {
-        return {
-          reply: `there was an error trying to log you in. Please try again.`,
-          statusCode: 2,
-        };
-      }
+      return {
+        reply: loginUser(content.user),
+        statusCode: 2,
+      };
+
     case 'logout':
       return {
         reply: `has successfully logged out.`,
