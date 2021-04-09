@@ -14,6 +14,10 @@
 // red is ```diff\n-```
 // white is ```tex\n$```
 
+// italics *text*
+// bold **text**
+// bold italics ***text***
+
 module.exports = {
   title: 'Command List',
   fields: [
