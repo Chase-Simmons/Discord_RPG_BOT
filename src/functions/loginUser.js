@@ -16,7 +16,7 @@ function loginUser(incomingUser) {
   });
 
   if (match === false) {
-    rep = `I could not find your account. Have you done 'rpg register' yet`;
+    rep = `I could not find your account. Have you done **register** yet`;
   }
   return rep;
 }

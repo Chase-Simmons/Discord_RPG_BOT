@@ -2,7 +2,8 @@ const fakeDB = require('./fakeDB');
 
 function register(incomingUser) {
   let match = false;
-  let rep = 'has successfully registered.';
+  let rep =
+    'has successfully registered. Please **login** and **create** a character';
 
   fakeDB.forEach((user) => {
     if (user.id === incomingUser.id) {

@@ -52,6 +52,7 @@ client.on('message', (msg) => {
           '© RPG BOT, By Gone.',
           `https://cdn.discordapp.com/avatars/${process.env.BOT_ID}/${process.env.BOT_AVATAR}.png?=512`
         );
+
       if (res.reply.description !== undefined) {
         embed.setDescription(res.reply.description);
       }
@@ -78,6 +79,7 @@ client.on('message', (msg) => {
           '© RPG BOT, By Gone.',
           `https://cdn.discordapp.com/avatars/${process.env.BOT_ID}/${process.env.BOT_AVATAR}.png?=512`
         );
+
       if (res.reply.description !== undefined) {
         embed.setDescription(res.reply.description);
       }
