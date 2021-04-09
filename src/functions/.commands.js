@@ -42,7 +42,9 @@ function commandFilter(content) {
     /*-----> LOGIN/OUT <-----*/
 
     /*-----> HELP <-----*/
-    case 'cd' || 'commands' || 'command' || 'cds':
+    case 'c':
+    case 'command':
+    case 'commands':
       return {
         reply: commandList,
         statusCode: 1,
