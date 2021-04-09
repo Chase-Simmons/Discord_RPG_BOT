@@ -1,4 +1,9 @@
+//FUNCTIONS
+
+/*-----> LOGIN/OUT <-----*/
 const loginUser = require('./loginUser');
+const logoutUser = require('./logoutUser');
+/*-----> LOGIN/OUT <-----*/
 
 // STATUS CODES
 // 0 = NORMAL
@@ -7,6 +12,7 @@ const loginUser = require('./loginUser');
 
 function commandFilter(content) {
   switch (content.msg) {
+    /*-----> TESTING <-----*/
     case 'test':
       return {
         reply: {
@@ -16,22 +22,28 @@ function commandFilter(content) {
         },
         statusCode: 1,
       };
+    /*-----> TESTING <-----*/
+
+    /*-----> LOGIN/OUT <-----*/
     case 'login':
       return {
         reply: loginUser(content.user),
         statusCode: 2,
       };
-
     case 'logout':
       return {
-        reply: `has successfully logged out.`,
+        reply: logoutUser(content.user),
         statusCode: 2,
       };
+    /*-----> LOGIN/OUT <-----*/
+
+    /*-----> NO MATCH <-----*/
     default:
       return {
         reply: 'This did not match any commands.',
         statusCode: 0,
       };
+    /*-----> NO MATCH <-----*/
   }
 }
 

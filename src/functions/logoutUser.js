@@ -1,15 +1,15 @@
 const fakeDB = require('./fakeDB');
 
-function loginUser(incomingUser) {
+function logoutUser(incomingUser) {
   let match = false;
-  let rep = 'has successfully logged in.';
+  let rep = 'has successfully logged out.';
 
   fakeDB.forEach((user) => {
     if (user.id === incomingUser.id) {
-      if (user.loginStatus === 'offline') {
-        user.loginStatus = 'online';
+      if (user.loginStatus === 'online') {
+        user.loginStatus = 'offline';
       } else {
-        rep = 'you are currently logged in. There is no need to log in again.';
+        rep = 'you are not currently logged in. There is no need to log out.';
       }
       match = true;
     }
@@ -22,5 +22,5 @@ function loginUser(incomingUser) {
 }
 
 module.exports = (incomingUser) => {
-  return loginUser(incomingUser);
+  return logoutUser(incomingUser);
 };
