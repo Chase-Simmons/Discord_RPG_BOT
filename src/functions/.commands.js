@@ -14,6 +14,10 @@ const create = require('./create');
 const commandList = require('./commandList');
 /*-----> HELP <-----*/
 
+/*-----> SELECT <-----*/
+const select = require('./select');
+/*-----> SELECT <-----*/
+
 // STATUS CODES
 // 0 = NORMAL
 // 1 = REPLY
@@ -22,11 +26,14 @@ const commandList = require('./commandList');
 
 function commandFilter(content) {
   const commandArray = [];
+  const args = [];
   let command;
 
-  if (content.msg.split(' ').length > 0) {
+  if (content.msg.split(' ').length > 1) {
     commandArray.push(...content.msg.split(' '));
     command = commandArray[0];
+    commandArray.shift();
+    args.push(...commandArray);
   } else {
     command = content.msg;
   }
@@ -77,6 +84,12 @@ function commandFilter(content) {
         statusCode: 2,
       };
     /*-----> HELP <-----*/
+
+    /*-----> SELECT <-----*/
+    case 'select':
+      const selectReply = select({ content, args });
+      return { reply: selectReply.content, statusCode: selectReply.statusCode };
+    /*-----> SELECT <-----*/
 
     /*-----> NO MATCH <-----*/
     default:
