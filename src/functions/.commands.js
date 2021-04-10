@@ -7,12 +7,11 @@ const logoutUser = require('./logoutUser');
 
 /*-----> REGISTRATION <-----*/
 const register = require('./register');
-const register = require('./create');
+const create = require('./create');
 /*-----> REGISTRATION <-----*/
 
 /*-----> HELP <-----*/
 const commandList = require('./commandList');
-const create = require('./create');
 /*-----> HELP <-----*/
 
 // STATUS CODES
@@ -22,7 +21,17 @@ const create = require('./create');
 // 3 = EMBED W/ THUMBNAIL
 
 function commandFilter(content) {
-  switch (content.msg) {
+  const commandArray = [];
+  let command;
+
+  if (content.msg.split(' ').length > 0) {
+    commandArray.push(...content.msg.split(' '));
+    command = commandArray[0];
+  } else {
+    command = content.msg;
+  }
+
+  switch (command) {
     /*-----> TESTING <-----*/
     case 'test':
       return {

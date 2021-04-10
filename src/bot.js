@@ -16,11 +16,11 @@ client.on('ready', () => {
 
 //MESSAGE
 client.on('message', (msg) => {
-  // console.log(msg); /* DEBUGGER */
+  // console.log(msg);
 
   msg.content = msg.content.toLowerCase();
 
-  if (msg.content[0] + msg.content[1] + msg.content[2] !== 'rpg') return;
+  if (msg.content.split(' ')[0] !== 'rpg') return;
 
   const content = {
     user: msg.author,
