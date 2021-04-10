@@ -59,9 +59,10 @@ function commandFilter(content) {
 
     /*-----> REGISTRATION <-----*/
     case 'register':
+      const registrationReply = register(content.user);
       return {
-        reply: register(content.user),
-        statusCode: 1,
+        reply: registrationReply.content,
+        statusCode: registrationReply.statusCode,
       };
     case 'create':
       return create(content.user);
