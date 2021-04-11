@@ -25,17 +25,20 @@ const select = require('./select');
 // 3 = EMBED W/ THUMBNAIL
 
 function commandFilter(content) {
+  const user = content.user;
+  const msg = content.msg;
   const commandArray = [];
   const args = [];
+
   let command;
 
-  if (content.msg.split(' ').length > 1) {
-    commandArray.push(...content.msg.split(' '));
+  if (msg.split(' ').length > 1) {
+    commandArray.push(...msg.split(' '));
     command = commandArray[0];
     commandArray.shift();
     args.push(...commandArray);
   } else {
-    command = content.msg;
+    command = msg;
   }
 
   switch (command) {
@@ -54,25 +57,25 @@ function commandFilter(content) {
     /*-----> LOGIN/OUT <-----*/
     case 'login':
       return {
-        reply: loginUser(content.user),
+        reply: loginUser(user),
         statusCode: 1,
       };
     case 'logout':
       return {
-        reply: logoutUser(content.user),
+        reply: logoutUser(user),
         statusCode: 1,
       };
     /*-----> LOGIN/OUT <-----*/
 
     /*-----> REGISTRATION <-----*/
     case 'register':
-      const registrationReply = register(content.user);
+      const Register = register(user);
       return {
-        reply: registrationReply.content,
-        statusCode: registrationReply.statusCode,
+        reply: Register.content,
+        statusCode: Register.statusCode,
       };
     case 'create':
-      return create(content.user);
+      return create(user);
     /*-----> REGISTRATION <-----*/
 
     /*-----> HELP <-----*/
@@ -87,8 +90,8 @@ function commandFilter(content) {
 
     /*-----> SELECT <-----*/
     case 'select':
-      const selectReply = select({ content, args });
-      return { reply: selectReply.content, statusCode: selectReply.statusCode };
+      const Select = select({ user, args });
+      return { reply: Select.content, statusCode: Select.statusCode };
     /*-----> SELECT <-----*/
 
     /*-----> NO MATCH <-----*/

@@ -1,13 +1,11 @@
 const fakeDB = require('./fakeDB');
 
 module.exports = (incomingUser) => {
-  rep = false;
-
+  let data;
   fakeDB.forEach((user) => {
     if (user.id === incomingUser.id) {
-      if (user.loginStatus === 'online') rep = true;
+      data = user;
     }
   });
-
-  return rep;
+  return data;
 };
