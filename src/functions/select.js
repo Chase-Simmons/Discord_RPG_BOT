@@ -2,10 +2,25 @@ const loginCheck = require('./loginCheck');
 const userInfo = require('./getUserInfo');
 
 function selectClass(content) {
-  if (content.user.character.class === null) {
+  let valueCheck = false;
+
+  if (
+    content.value === 'warrior' ||
+    content.value === 'cleric' ||
+    content.value === 'rogue' ||
+    content.value === 'mage' ||
+    content.value === 'archer'
+  ) {
+    valueCheck = true;
+  }
+
+  if (content.user.character.class === null && valueCheck === true) {
     content.user.character.class = content.value;
     console.log(content.user);
+
     return `has selected the class of **${content.value}**.`;
+  } else if (valueCheck === false) {
+    return `**${content.value}** does not match any of the available classes. Try using **classes** to see your options.`;
   } else {
     return `you have already selected the class of **${content.user.character.class}**.`;
   }
