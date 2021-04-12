@@ -1,5 +1,4 @@
 const fakeDB = require('./fakeDB');
-const roll = require('./rollBonusStats');
 
 function createCharacter(incomingUser) {
   fakeDB.forEach((user) => {
@@ -9,7 +8,6 @@ function createCharacter(incomingUser) {
       user.character = {
         class: null,
         stats: {},
-        bonus: roll(),
       };
     }
   });

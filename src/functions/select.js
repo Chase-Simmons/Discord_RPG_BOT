@@ -16,7 +16,6 @@ function selectClass(content) {
 
   if (content.user.character.class === null && valueCheck === true) {
     content.user.character.class = content.value;
-    console.log(content.user);
 
     return `has selected the class of **${content.value}**.`;
   } else if (valueCheck === false) {
