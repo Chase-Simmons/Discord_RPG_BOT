@@ -1,5 +1,6 @@
 const loginCheck = require('./loginCheck');
 const userInfo = require('./getUserInfo');
+const setUserStats = require('./setUserStats');
 
 function selectClass(content) {
   let valueCheck = false;
@@ -16,6 +17,8 @@ function selectClass(content) {
 
   if (content.user.character.class === null && valueCheck === true) {
     content.user.character.class = content.value;
+    setUserStats({ user: content.user, class: content.value });
+    console.log(content.user);
 
     return `has selected the class of **${content.value}**.`;
   } else if (valueCheck === false) {

@@ -4,7 +4,7 @@ module.exports = (content) => {
 
   switch (selectedClass) {
     case 'warrior':
-      user.stats = {
+      user.character.stats = {
         strength: 7,
         dexterity: 1,
         vitality: 7,
@@ -15,7 +15,7 @@ module.exports = (content) => {
       };
       break;
     case 'cleric':
-      user.stats = {
+      user.character.stats = {
         strength: 3,
         dexterity: 1,
         vitality: 6,
@@ -26,7 +26,7 @@ module.exports = (content) => {
       };
       break;
     case 'rogue':
-      user.stats = {
+      user.character.stats = {
         strength: 6,
         dexterity: 3,
         vitality: 6,
@@ -37,7 +37,7 @@ module.exports = (content) => {
       };
       break;
     case 'mage':
-      user.stats = {
+      user.character.stats = {
         strength: 2,
         dexterity: 2,
         vitality: 4,
@@ -48,7 +48,7 @@ module.exports = (content) => {
       };
       break;
     case 'archer':
-      user.stats = {
+      user.character.stats = {
         strength: 2,
         dexterity: 7,
         vitality: 4,
