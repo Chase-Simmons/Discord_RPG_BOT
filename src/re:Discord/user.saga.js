@@ -3,7 +3,9 @@ const axios = require('axios');
 function* getSaga() {
   try {
     yield console.log('hello');
-  } catch {}
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = (data) => {
@@ -13,7 +15,7 @@ module.exports = (data) => {
   switch (call) {
     case 'GET':
       // axios.get(`/api/user`);
-      getSaga();
+      getSaga().next;
       break;
     case 'POST':
       break;
