@@ -27,5 +27,16 @@ module.exports = (data) => {
           );
         });
       break;
+    case 'PUT_ALL':
+      console.log('Logging out all users');
+      queryText = `UPDATE "users" SET "online_status" = 'offline' WHERE "online_status" = 'online';`;
+
+      pool
+        .query(queryText)
+        .then(() => {})
+        .catch((err) => {
+          console.log(`Error during **ALL USER LOGOUT**`, err);
+        });
+      break;
   }
 };

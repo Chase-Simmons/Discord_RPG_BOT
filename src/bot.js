@@ -14,7 +14,7 @@ client.login(process.env.BOT_TOKEN);
 
 //READY
 client.on('ready', () => {
-  dispatch({ action: 'USER', call: 'GET', payload: '' });
+  onReady();
   console.log('RPG BOT has successfully booted');
 });
 
@@ -93,3 +93,8 @@ client.on('message', (msg) => {
       break;
   }
 });
+
+function onReady() {
+  dispatch({ action: 'LOGOUT', call: 'PUT_ALL', payload: '' });
+  dispatch({ action: 'USER', call: 'GET', payload: '' });
+}
