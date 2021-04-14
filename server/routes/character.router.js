@@ -10,6 +10,7 @@ router.put('/login/:id', (req, res) => {
   pool
     .query(queryText, [discordID])
     .then(() => {
+      info.loggedInUsers.push(discordID);
       res.sendStatus(200);
     })
     .catch((err) => {
@@ -24,10 +25,11 @@ router.put('/logout/:id', (req, res) => {
   pool
     .query(queryText, [discordID])
     .then(() => {
+      info.loggedInUsers.filter((userID) => userID !== discordID);
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log(`Error during **USER LOGIN** [USER ID] [${discordID}]`, err);
+      console.log(`Error during **USER LOGOUT** [USER ID] [${discordID}]`, err);
       res.sendStatus(500);
     });
 });

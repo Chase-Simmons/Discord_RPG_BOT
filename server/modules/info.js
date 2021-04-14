@@ -1,4 +1,5 @@
 const information = {
+  allUsers: [],
   loggedInUsers: [],
 };
 

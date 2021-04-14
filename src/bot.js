@@ -5,12 +5,16 @@ const client = new Discord.Client();
 
 const commands = require('./functions/.commands');
 const reduceMessage = require('./functions/reduceMessage');
+
+const dispatch = require('./re:Discord/.root.js');
+
 let embed;
 
 client.login(process.env.BOT_TOKEN);
 
 //READY
 client.on('ready', () => {
+  dispatch({ action: 'USER', call: 'GET', payload: '' });
   console.log('RPG BOT has successfully booted');
 });
 
