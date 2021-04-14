@@ -1,4 +1,5 @@
-const axios = require('axios');
+const pool = require('../modules/pool');
+const info = require('../modules/info');
 
 module.exports = (data) => {
   const call = data.call;
@@ -12,7 +13,6 @@ module.exports = (data) => {
     case 'DELETE':
       break;
     case 'PUT':
-      axios.put(`/api/character/login/${payload}`);
       break;
   }
 };

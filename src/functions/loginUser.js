@@ -1,20 +1,19 @@
 const fakeDB = require('./fakeDB');
-const serverInfo = require('../../server/modules/info');
+const serverInfo = require('../modules/info');
 const dispatch = require('../re:Discord/.root.js');
 
 function loginUser(incomingUser) {
   let match = false;
   let rep = 'has successfully logged in.';
 
-  const users = serverInfo.loggedInUsers;
-  console.log(users);
+  const users = serverInfo.allUsers;
 
   users.forEach((user) => {
-    if (user.id === incomingUser.id) {
-      if (user.loginStatus === 'offline') {
-        user.loginStatus = 'online';
-        dispatch({ action: 'LOGIN', call: 'PUT', payload: user.id });
-        console.log(user);
+    // console.log(user.discord_id, incomingUser.id);
+    if (user.discord_id === incomingUser.id) {
+      if (user.online_status === 'offline') {
+        user.online_status = 'online';
+        dispatch({ action: 'LOGIN', call: 'PUT', payload: user.discord_id });
       } else {
         rep = 'you are currently logged in. There is no need to log in again.';
       }

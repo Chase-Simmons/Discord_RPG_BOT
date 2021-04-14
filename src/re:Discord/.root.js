@@ -1,13 +1,11 @@
-const login = require('./logout.saga');
-const logout = require('./logout.saga');
-const user = require('./user.saga');
+const login = require('./re:Login');
+const logout = require('./re:Logout');
+const user = require('./re:User');
 
 function dispatch(dataObj) {
   // console.log('incoming request', dataObj);
   const action = dataObj.action;
   const data = { call: dataObj.call, payload: dataObj.payload };
-
-  let response;
 
   switch (action) {
     case 'LOGIN':
@@ -21,8 +19,7 @@ function dispatch(dataObj) {
       break;
   }
 
-  if (!response) return;
-  return response;
+  return;
 }
 
 module.exports = (dataObj) => {
