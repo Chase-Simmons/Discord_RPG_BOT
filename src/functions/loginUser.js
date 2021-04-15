@@ -1,4 +1,3 @@
-const fakeDB = require('./fakeDB');
 const serverInfo = require('../modules/info');
 const dispatch = require('../re:Discord/.root.js');
 
@@ -9,7 +8,6 @@ function loginUser(incomingUser) {
   const users = serverInfo.allUsers;
 
   users.forEach((user) => {
-    // console.log(user.discord_id, incomingUser.id);
     if (user.discord_id === incomingUser.id) {
       if (user.online_status === 'offline') {
         user.online_status = 'online';

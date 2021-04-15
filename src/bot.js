@@ -96,5 +96,5 @@ client.on('message', (msg) => {
 
 function onReady() {
   dispatch({ action: 'LOGOUT', call: 'PUT_ALL', payload: '' });
-  dispatch({ action: 'USER', call: 'GET', payload: '' });
+  dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
 }

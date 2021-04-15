@@ -8,6 +8,8 @@ module.exports = (data) => {
 
   switch (call) {
     case 'GET':
+      break;
+    case 'GET_ALL':
       queryText = `SELECT * FROM "users";`;
 
       pool
@@ -16,9 +18,8 @@ module.exports = (data) => {
           info.allUsers = [...response.rows];
         })
         .catch((err) => {
-          console.log(`Error during **GET USERS**`, err);
+          console.log(`Error during **GET_ALL USERS**`, err);
         });
-
       break;
     case 'POST':
       break;
