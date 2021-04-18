@@ -1,8 +1,8 @@
-const fakeDB = require('./fakeDB');
+const serverInfo = require('../modules/info');
 
 module.exports = (incomingUser) => {
   let data;
-  fakeDB.forEach((user) => {
+  serverInfo.loggedInUsers.forEach((user) => {
     if (user.id === incomingUser.id) {
       data = user;
     }
