@@ -1,4 +1,3 @@
-const pool = require('../modules/pool');
 const info = require('../modules/info');
 const eSQL = require('../modules/eSQL');
 
@@ -14,20 +13,15 @@ module.exports = (data) => {
     case 'DELETE':
       break;
     case 'PUT':
-      queryText = `UPDATE "users" SET "online_status" = 'online' WHERE "discord_id" = $1;`;
-
-      eSQL.Insert().Create().Query();
-      pool
-        .query(queryText, [payload])
-        .then(() => {
-          info.loggedInUsers.push(payload);
-        })
-        .catch((err) => {
-          console.log(
-            `Error during **USER LOGIN** [USER ID] [${payload}]`,
-            err
-          );
+      eSQL
+        .Update('users')
+        .Set('online_status', 'online')
+        .Where('discord_id', payload)
+        .Query()
+        .Then((res) => {
+          console.log(res);
         });
+
       break;
   }
 };
