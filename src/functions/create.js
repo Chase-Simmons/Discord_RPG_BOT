@@ -1,7 +1,7 @@
-const fakeDB = require('./fakeDB');
+const serverInfo = require('../modules/info');
 
 function createCharacter(incomingUser) {
-  fakeDB.forEach((user) => {
+  serverInfo.allUsers.forEach((user) => {
     if (user.id === incomingUser.id) {
       match = true;
 
