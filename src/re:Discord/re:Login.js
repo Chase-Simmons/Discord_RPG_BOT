@@ -1,5 +1,6 @@
 const pool = require('../modules/pool');
 const info = require('../modules/info');
+const eSQL = require('../modules/eSQL');
 
 module.exports = (data) => {
   const call = data.call;
@@ -15,6 +16,7 @@ module.exports = (data) => {
     case 'PUT':
       queryText = `UPDATE "users" SET "online_status" = 'online' WHERE "discord_id" = $1;`;
 
+      eSQL.Insert().Create().Query();
       pool
         .query(queryText, [payload])
         .then(() => {
