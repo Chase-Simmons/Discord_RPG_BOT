@@ -11,37 +11,27 @@
 
 const pool = require('./pool');
 
-const queryObj = {};
+let queryObj = {};
 let queryText = '';
 
 let response;
 
-function buildQuery(queryObj) {
-  for (const [key, value] of Object.entries(queryObj)) {
-    switch (key) {
-      case 'create':
-      case 'insert':
-      case 'update':
-      case 'delete':
-        queryText += `${key.toUpperCase()} "${value}"`;
-        break;
-
-      case 'set':
-        queryText += ` ${key.toUpperCase()} "${value.what}" = '${value.to}'`;
-        break;
-
-      case 'where':
-        queryText += ` ${key.toUpperCase()} "${value.where}" = '${value.is}'`;
-        break;
-    }
-  }
-
+function startQuery() {
   queryText += ';';
 
   console.log(queryText);
+
   Pool(queryText);
+  queryCleanup();
 }
 
+function SelectMapping(what) {
+  if (what === '*') {
+    queryText += `SELECT ${what}`;
+  } else {
+    queryText += `SELECT "${what}"`;
+  }
+}
 function Pool(queryText) {
   pool
     .query(queryText)
@@ -52,33 +42,47 @@ function Pool(queryText) {
       console.log(err);
     });
 }
+
+function queryCleanup() {
+  queryObj = {};
+  queryText = '';
+}
+
 class eSQL {
   Create(what = '') {
-    queryObj.create = what;
+    queryText += `CREATE "${what}"`;
     return this;
   }
   Insert(what = '') {
-    queryObj.insert = what;
+    queryText += `INSERT "${what}"`;
     return this;
   }
   Update(what = '') {
-    queryObj.update = what;
+    queryText += `UPDATE "${what}"`;
     return this;
   }
   Delete(what = '') {
-    queryObj.delete = what;
+    queryText += `DELETE "${what}"`;
+    return this;
+  }
+  Select(what = '') {
+    SelectMapping(what);
     return this;
   }
   Set(what = '', to = '') {
-    queryObj.set = { what, to };
+    queryText += ` SET "${what}" = '${to}'`;
     return this;
   }
   Where(where = '', is = '') {
-    queryObj.where = { where, is };
+    queryText += ` WHERE "${where}" = '${is}'`;
+    return this;
+  }
+  From(from = '') {
+    queryText += ` FROM "${from}"`;
     return this;
   }
   Query() {
-    buildQuery(queryObj);
+    startQuery();
     return this;
   }
   Then(F) {

@@ -1,4 +1,4 @@
-const pool = require('../modules/pool');
+const eSQL = require('../modules/eSQL');
 const info = require('../modules/info');
 
 module.exports = (data) => {
@@ -13,30 +13,22 @@ module.exports = (data) => {
     case 'DELETE':
       break;
     case 'PUT':
-      queryText = `UPDATE "users" SET "online_status" = 'offline' WHERE "discord_id" = $1;`;
-
-      pool
-        .query(queryText, [payload])
-        .then(() => {
+      eSQL
+        .Update('users')
+        .Set('online_status', 'offline')
+        .Where('discord_id', payload)
+        .Query()
+        .Then((res) => {
           info.loggedInUsers.filter((userID) => userID !== payload);
-        })
-        .catch((err) => {
-          console.log(
-            `Error during **USER LOGOUT** [USER ID] [${payload}]`,
-            err
-          );
         });
+
       break;
     case 'PUT_ALL':
-      console.log('Logging out all users');
-      queryText = `UPDATE "users" SET "online_status" = 'offline' WHERE "online_status" = 'online';`;
-
-      pool
-        .query(queryText)
-        .then(() => {})
-        .catch((err) => {
-          console.log(`Error during **ALL USER LOGOUT**`, err);
-        });
+      eSQL
+        .Update('users')
+        .Set('online_status', 'offline')
+        .Where('online_status', 'online')
+        .Query();
       break;
   }
 };

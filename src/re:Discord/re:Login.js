@@ -19,7 +19,7 @@ module.exports = (data) => {
         .Where('discord_id', payload)
         .Query()
         .Then((res) => {
-          console.log(res);
+          info.loggedInUsers.push(payload);
         });
 
       break;

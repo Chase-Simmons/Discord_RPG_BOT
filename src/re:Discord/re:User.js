@@ -1,24 +1,20 @@
-const pool = require('../modules/pool');
+const eSQL = require('../modules/eSQL');
 const info = require('../modules/info');
 
 module.exports = (data) => {
   const call = data.call;
   const payload = data.payload;
-  let queryText;
 
   switch (call) {
     case 'GET':
       break;
     case 'GET_ALL':
-      queryText = `SELECT * FROM "users";`;
-
-      pool
-        .query(queryText)
-        .then((response) => {
+      eSQL
+        .Select('*')
+        .From('users')
+        .Query()
+        .Then((response) => {
           info.allUsers = [...response.rows];
-        })
-        .catch((err) => {
-          console.log(`Error during **GET_ALL USERS**`, err);
         });
       break;
     case 'POST':
