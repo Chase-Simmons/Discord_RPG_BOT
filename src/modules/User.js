@@ -2,6 +2,7 @@ const info = require('../modules/info');
 
 class UserEvent {
   static userData;
+  static loggedIn = false;
 
   GetInfo(userID = '') {
     info.allUsers.forEach((user) => {
@@ -10,6 +11,15 @@ class UserEvent {
       }
     });
     return this.userData;
+  }
+
+  LoginCheck(userID = '') {
+    info.loggedInUsers.forEach((user) => {
+      if (user === userID) {
+        this.loggedIn = true;
+      }
+    });
+    return this.loggedIn;
   }
 }
 

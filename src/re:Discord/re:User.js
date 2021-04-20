@@ -10,10 +10,12 @@ module.exports = (data) => {
       break;
     case 'GET_ALL':
       eSQL
-        .Select('*')
+        .Select([{ users: ['discord_id', 'username', 'online_status'] }])
         .From('users')
+        .LeftJoin('character', 'users', 'discord_id', 'discord_id')
         .Query()
         .Then((response) => {
+          console.log(response.rows);
           info.allUsers = [...response.rows];
         });
       break;

@@ -1,4 +1,3 @@
-const loginCheck = require('./loginCheck');
 const User = require('../modules/User');
 const setUserStats = require('./setUserStats');
 
@@ -15,11 +14,8 @@ function selectClass(content) {
     valueCheck = true;
   }
 
-  if (content.user.character.class === null && valueCheck === true) {
-    content.user.character.class = content.value;
+  if (!content.user.character && valueCheck === true) {
     setUserStats({ user: content.user, class: content.value });
-    console.log(content.user);
-
     return `has selected the class of **${content.value}**.`;
   } else if (valueCheck === false) {
     return `**${content.value}** does not match any of the available classes. Try using **classes** to see your options.`;
@@ -46,8 +42,7 @@ function selectSwitch(content) {
 }
 
 module.exports = (content) => {
-  console.log(content);
-  if (loginCheck(content.user) === true) {
+  if (User.LoginCheck(content.user.id) === true) {
     content.user = User.GetInfo(content.user.id);
     return selectSwitch(content);
   } else {

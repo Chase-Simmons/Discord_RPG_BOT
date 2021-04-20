@@ -25,8 +25,29 @@ function startQuery() {
 }
 
 function SelectMapping(what) {
+  // COMPLEX 'object' aka array MAPPING EXAMPLE =
+  // eSQL.Select(
+  //  [ array
+  //    { tableName:
+  //      [array of column names]
+  //    },
+  //    { tableName:
+  //      [array of column names]
+  //    }
+  //  ]);
+
   if (what === '*') {
     queryText += `SELECT ${what}`;
+  } else if (typeof what === 'object') {
+    queryText += 'SELECT';
+    what.forEach((object) => {
+      for (const [table, value] of Object.entries(object)) {
+        value.forEach((column) => {
+          queryText += ` "${table}"."${column}",`;
+        });
+      }
+    });
+    queryText = queryText.slice(0, -1);
   } else {
     queryText += `SELECT "${what}"`;
   }
@@ -86,15 +107,19 @@ class eSQL {
   }
   Join(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
     queryText += ` JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
+    return this;
   }
   LeftJoin(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
     queryText += ` LEFT JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
+    return this;
   }
   RightJoin(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
     queryText += ` RIGHT JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
+    return this;
   }
   Order(by = '', byColumn = '', direction = '') {
-    queryText += ` ORDER BY "${by}"."${byColumn} ${direction.toUpperCase()}"`;
+    queryText += ` ORDER BY "${by}"."${byColumn}" ${direction.toUpperCase()}`;
+    return this;
   }
   Query() {
     startQuery();

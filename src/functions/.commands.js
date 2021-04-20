@@ -7,7 +7,6 @@ const logoutUser = require('./logoutUser');
 
 /*-----> REGISTRATION <-----*/
 const register = require('./register');
-const create = require('./create');
 /*-----> REGISTRATION <-----*/
 
 /*-----> HELP <-----*/
@@ -74,8 +73,6 @@ function commandFilter(content) {
         reply: Register.content,
         statusCode: Register.statusCode,
       };
-    case 'create':
-      return create(user);
     /*-----> REGISTRATION <-----*/
 
     /*-----> HELP <-----*/
