@@ -81,6 +81,18 @@ class eSQL {
     queryText += ` FROM "${from}"`;
     return this;
   }
+  Join(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
+    queryText += ` JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
+  }
+  LeftJoin(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
+    queryText += ` LEFT JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
+  }
+  RightJoin(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
+    queryText += ` RIGHT JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
+  }
+  Order(by = '', byColumn = '' direction = '') {
+    queryText += ` ORDER BY "${by}"."${byColumn} ${direction.toUpperCase()}"`
+  }
   Query() {
     startQuery();
     return this;
