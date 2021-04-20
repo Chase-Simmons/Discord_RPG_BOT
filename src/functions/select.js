@@ -1,5 +1,5 @@
 const loginCheck = require('./loginCheck');
-const userInfo = require('./getUserInfo');
+const User = require('../modules/User');
 const setUserStats = require('./setUserStats');
 
 function selectClass(content) {
@@ -42,15 +42,13 @@ function selectSwitch(content) {
       break;
   }
 
-  console.log(content);
-
   return rep;
 }
 
 module.exports = (content) => {
-  if (loginCheck(content.user)) {
-    content.user = userInfo(content.user);
-
+  console.log(content);
+  if (loginCheck(content.user) === true) {
+    content.user = User.GetInfo(content.user.id);
     return selectSwitch(content);
   } else {
     return {

@@ -4,8 +4,8 @@ module.exports = (incomingUser) => {
   rep = false;
 
   serverInfo.loggedInUsers.forEach((user) => {
-    if (user.id === incomingUser.id) {
-      if (user.loginStatus === 'online') rep = true;
+    if (user === incomingUser.id) {
+      rep = true;
     }
   });
 
