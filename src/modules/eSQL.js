@@ -11,7 +11,6 @@
 
 const pool = require('./pool');
 
-let queryObj = {};
 let queryText = '';
 
 let response;
@@ -32,6 +31,11 @@ function SelectMapping(what) {
     queryText += `SELECT "${what}"`;
   }
 }
+
+function queryCleanup() {
+  queryText = '';
+}
+
 function Pool(queryText) {
   pool
     .query(queryText)
@@ -43,18 +47,13 @@ function Pool(queryText) {
     });
 }
 
-function queryCleanup() {
-  queryObj = {};
-  queryText = '';
-}
-
 class eSQL {
   Create(what = '') {
     queryText += `CREATE "${what}"`;
     return this;
   }
-  Insert(what = '') {
-    queryText += `INSERT "${what}"`;
+  Insert(what = '', values = []) {
+    queryText += `INSERT INTO "${what}" ("${values.join(`", "`)}")`;
     return this;
   }
   Update(what = '') {
@@ -81,6 +80,10 @@ class eSQL {
     queryText += ` FROM "${from}"`;
     return this;
   }
+  Values(values = []) {
+    queryText += ` VALUES ('${values.join(`', '`)}')`;
+    return this;
+  }
   Join(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
     queryText += ` JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
   }
@@ -90,8 +93,8 @@ class eSQL {
   RightJoin(what = '', onTable = '', onTableColumn = '', whatColumn = '') {
     queryText += ` RIGHT JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
   }
-  Order(by = '', byColumn = '' direction = '') {
-    queryText += ` ORDER BY "${by}"."${byColumn} ${direction.toUpperCase()}"`
+  Order(by = '', byColumn = '', direction = '') {
+    queryText += ` ORDER BY "${by}"."${byColumn} ${direction.toUpperCase()}"`;
   }
   Query() {
     startQuery();

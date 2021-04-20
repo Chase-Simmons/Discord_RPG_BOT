@@ -18,7 +18,7 @@ module.exports = (data) => {
         .Set('online_status', 'offline')
         .Where('discord_id', payload)
         .Query()
-        .Then((res) => {
+        .Then(() => {
           info.loggedInUsers.filter((userID) => userID !== payload);
         });
 

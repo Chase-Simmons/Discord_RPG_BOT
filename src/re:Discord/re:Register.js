@@ -9,6 +9,10 @@ module.exports = (data) => {
     case 'GET':
       break;
     case 'POST':
+      eSQL
+        .Insert('users', ['discord_id', 'username', 'online_status'])
+        .Values([payload.id, payload.username, payload.loginStatus])
+        .Query();
       break;
     case 'DELETE':
       break;

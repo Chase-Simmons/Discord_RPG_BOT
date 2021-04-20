@@ -1,6 +1,7 @@
 const login = require('./re:Login');
 const logout = require('./re:Logout');
 const user = require('./re:User');
+const register = require('./re:Register');
 
 function dispatch(dataObj) {
   // console.log('incoming request', dataObj);
@@ -16,6 +17,9 @@ function dispatch(dataObj) {
       break;
     case 'USER':
       user(data);
+      break;
+    case 'REGISTER':
+      register(data);
       break;
   }
 
