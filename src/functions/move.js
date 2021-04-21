@@ -1,24 +1,27 @@
 const User = require('../modules/User');
 const dispatch = require('../re:Discord/.root.js');
 
-function move(incomingUser) {
-  let rep = 'has successfully logged in.';
+function move(content) {
+  const user = content.user;
+  const arg = content.args.join(' ');
 
-  const user = User.GetInfo(incomingUser.id);
+  let rep = { content: `has successfully moved to **${arg}**.`, statusCode: 1 };
 
-  if (user !== false) {
-    if (user.online_status === 'offline') {
-      user.online_status = 'online';
-      dispatch({ action: 'LOGIN', call: 'PUT', payload: user.discord_id });
-    } else {
-      rep = 'you are currently logged in. There is no need to log in again.';
-    }
+  if (User.Move(user.id, arg) === true) {
   } else {
-    rep = `I could not find your account. Have you done **register** yet`;
+    rep = { content: `could not move to **${arg}**.`, statusCode: 1 };
   }
+
   return rep;
 }
 
-module.exports = (incomingUser) => {
-  return move(incomingUser);
+module.exports = (content) => {
+  if (User.LoginCheck(content.user.id) === true) {
+    return move(content);
+  } else {
+    return {
+      content: 'you are not logged in. Please **login** first.',
+      statusCode: 1,
+    };
+  }
 };

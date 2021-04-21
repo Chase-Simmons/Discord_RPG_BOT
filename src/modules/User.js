@@ -1,13 +1,14 @@
 const info = require('../modules/info');
 
+const mapping = [
+  { name: 'deep sea port', connects: ['heros square'] },
+  { name: 'heros square', connects: ['deep sea port'] },
+];
+
 class UserEvent {
-  static basicResponse;
+  static tfResponse;
   static userData;
   static loggedIn = false;
-  static mapping = [
-    { name: 'deep sea port', connects: ['heros square'] },
-    { name: 'heros square', connects: ['deep sea port'] },
-  ];
 
   GetInfo(userID = '') {
     info.allUsers.forEach((user) => {
@@ -33,12 +34,16 @@ class UserEvent {
       if (location.name === this.userData.map) {
         location.connects.forEach((connection) => {
           if (connection === map) {
-            this.basicResponse === true;
+            this.tfResponse = true;
+            return;
+          } else {
+            this.tfResponse = false;
           }
         });
       }
     });
-    return this.basicResponse;
+    console.log(this.tfResponse);
+    return this.tfResponse;
   }
 }
 

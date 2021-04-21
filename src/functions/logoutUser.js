@@ -1,25 +1,18 @@
-const serverInfo = require('../modules/info');
+const User = require('../modules/User');
 const dispatch = require('../re:Discord/.root.js');
 
 function logoutUser(incomingUser) {
-  let match = false;
   let rep = 'has successfully logged out.';
+  const user = User.GetInfo(incomingUser.id);
 
-  const users = serverInfo.allUsers;
-
-  users.forEach((user) => {
-    if (user.discord_id === incomingUser.id) {
-      if (user.online_status === 'online') {
-        user.online_status = 'offline';
-        dispatch({ action: 'LOGOUT', call: 'PUT', payload: user.discord_id });
-      } else {
-        rep = 'you are not currently logged in. There is no need to log out.';
-      }
-      match = true;
+  if (user !== false) {
+    if (user.online_status === 'online') {
+      user.online_status = 'offline';
+      dispatch({ action: 'LOGOUT', call: 'PUT', payload: user.discord_id });
+    } else {
+      rep = 'you are not currently logged in. There is no need to log out.';
     }
-  });
-
-  if (match === false) {
+  } else {
     rep = `I could not find your account. Have you done **register** yet`;
   }
   return rep;

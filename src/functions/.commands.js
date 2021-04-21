@@ -95,7 +95,7 @@ function commandFilter(content) {
 
     case 'move':
       const Move = move({ user, args });
-      return;
+      return { reply: Move.content, statusCode: Move.statusCode };
     /*-----> NO MATCH <-----*/
     default:
       return {
