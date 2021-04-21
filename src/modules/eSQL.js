@@ -85,7 +85,7 @@ class eSQL {
     queryText += `DELETE "${what}"`;
     return this;
   }
-  Select(what = '') {
+  Select(what = '' || [{ tableName: [] }]) {
     SelectMapping(what);
     return this;
   }
