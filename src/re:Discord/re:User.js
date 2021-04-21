@@ -12,6 +12,7 @@ module.exports = (data) => {
       eSQL
         .Select([
           { users: ['discord_id', 'username', 'online_status'] },
+          { character_locations: ['map'] },
           {
             character: [
               'class',
@@ -30,6 +31,7 @@ module.exports = (data) => {
           },
         ])
         .From('users')
+        .LeftJoin('character_locations', 'users', 'discord_id', 'discord_id')
         .LeftJoin('character', 'users', 'discord_id', 'discord_id')
         .Query()
         .Then((response) => {

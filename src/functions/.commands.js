@@ -17,6 +17,8 @@ const commandList = require('./commandList');
 const select = require('./select');
 /*-----> SELECT <-----*/
 
+const move = require('./move');
+
 // STATUS CODES
 // 0 = NORMAL
 // 1 = REPLY
@@ -91,6 +93,9 @@ function commandFilter(content) {
       return { reply: Select.content, statusCode: Select.statusCode };
     /*-----> SELECT <-----*/
 
+    case 'move':
+      const Move = move({ user, args });
+      return;
     /*-----> NO MATCH <-----*/
     default:
       return {

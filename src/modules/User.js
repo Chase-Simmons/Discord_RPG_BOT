@@ -15,7 +15,7 @@ class UserEvent {
         this.userData = user;
       }
     });
-    return this.userData;
+    return this.userData || false;
   }
 
   LoginCheck(userID = '') {
