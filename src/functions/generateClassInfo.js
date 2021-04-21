@@ -38,6 +38,8 @@ module.exports = (content) => {
           },
         },
       });
+      dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
+
       break;
     case 'cleric':
       dispatch({
@@ -61,6 +63,8 @@ module.exports = (content) => {
           },
         },
       });
+      dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
+
       break;
     case 'rogue':
       dispatch({
@@ -84,6 +88,8 @@ module.exports = (content) => {
           },
         },
       });
+      dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
+
       break;
     case 'mage':
       dispatch({
@@ -107,6 +113,8 @@ module.exports = (content) => {
           },
         },
       });
+      dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
+
       break;
     case 'archer':
       dispatch({
@@ -130,6 +138,8 @@ module.exports = (content) => {
           },
         },
       });
+      dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
+
       break;
     default:
       break;

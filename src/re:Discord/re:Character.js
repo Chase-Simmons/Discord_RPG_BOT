@@ -44,7 +44,9 @@ module.exports = (data) => {
         ])
         .Query()
         .Then((res) => {
-          User.GetInfo(payload.user).push(...values);
+          let user = User.GetInfo(payload.user);
+          user = { ...user, ...values };
+          console.table(user);
         });
 
       break;
