@@ -1,5 +1,5 @@
 const User = require('../modules/User');
-const setUserStats = require('./setUserStats');
+const generateClassInfo = require('./generateClassInfo');
 
 function selectClass(content) {
   let valueCheck = false;
@@ -15,7 +15,7 @@ function selectClass(content) {
   }
 
   if (!content.user.character && valueCheck === true) {
-    setUserStats({ user: content.user, class: content.value });
+    generateClassInfo({ user: content.user, class: content.value });
     return `has selected the class of **${content.value}**.`;
   } else if (valueCheck === false) {
     return `**${content.value}** does not match any of the available classes. Try using **classes** to see your options.`;
