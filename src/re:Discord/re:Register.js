@@ -12,10 +12,7 @@ module.exports = (data) => {
       eSQL
         .Insert('users', ['discord_id', 'username', 'online_status'])
         .Values([payload.id, payload.username, payload.loginStatus])
-        .Query()
-        .Then((res) => {
-          dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
-        });
+        .Query();
       break;
     case 'DELETE':
       break;

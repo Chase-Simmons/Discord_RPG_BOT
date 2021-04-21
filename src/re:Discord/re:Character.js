@@ -44,9 +44,15 @@ module.exports = (data) => {
         ])
         .Query()
         .Then((res) => {
-          let user = User.GetInfo(payload.user);
-          user = { ...user, ...values };
-          console.table(user);
+          eSQL
+            .Insert('character_locations', ['discord_id', 'map'])
+            .Values([payload.id, 'deep sea port'])
+            .Query()
+            .Then((res) => {
+              let user = User.GetInfo(payload.user);
+              user = { ...user, ...values };
+              console.table(user);
+            });
         });
 
       break;
