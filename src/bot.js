@@ -10,6 +10,8 @@ const dispatch = require('./re:Discord/.root.js');
 
 let embed;
 
+const Map = require('./modules/Map');
+
 client.login(process.env.BOT_TOKEN);
 
 //READY
@@ -97,4 +99,5 @@ client.on('message', (msg) => {
 function onReady() {
   dispatch({ action: 'LOGOUT', call: 'PUT_ALL', payload: '' });
   dispatch({ action: 'USER', call: 'GET_ALL', payload: '' });
+  Map.DeepSeaPort();
 }
