@@ -33,15 +33,11 @@ function requireLogin({ user, args = '' }, F) {
   if (user.online_status === 'online') {
     return F(user || { user, args });
   } else {
-    return notLoggedInMsg;
+    return {
+      reply: 'you are not logged in. Please **login** first.',
+      statusCode: 1,
+    };
   }
-}
-
-function notLoggedInMsg() {
-  return {
-    content: 'you are not logged in. Please **login** first.',
-    statusCode: 1,
-  };
 }
 
 function commandFilter(content) {
@@ -77,7 +73,7 @@ function commandFilter(content) {
 
     /*-----> REGISTRATION <-----*/
     case 'register':
-      return requireLogin(user, (user) => {
+      return requireLogin(user, () => {
         const Register = register(user);
         return {
           reply: Register.content,
@@ -98,14 +94,14 @@ function commandFilter(content) {
 
     /*-----> SELECT <-----*/
     case 'select':
-      return requireLogin({ user, args }, ({ user, args }) => {
+      return requireLogin({ user, args }, () => {
         const Select = select({ user, args });
         return { reply: Select.content, statusCode: Select.statusCode };
       });
     /*-----> SELECT <-----*/
 
     case 'move':
-      return requireLogin({ user, args }, ({ user, args }) => {
+      return requireLogin({ user, args }, () => {
         const Move = move({ user, args });
         return { reply: Move.content, statusCode: Move.statusCode };
       });

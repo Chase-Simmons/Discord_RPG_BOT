@@ -42,7 +42,6 @@ class UserEvent {
         });
       }
     });
-    console.log(this.tfResponse);
     return this.tfResponse;
   }
 }
