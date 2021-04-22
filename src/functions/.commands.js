@@ -19,6 +19,9 @@ const select = require('./select');
 
 const move = require('./move');
 
+const User = require('../modules/User');
+const splitMsg = require('./QoCL/splitMsg');
+
 // STATUS CODES
 // 0 = NORMAL
 // 1 = REPLY
@@ -26,21 +29,9 @@ const move = require('./move');
 // 3 = EMBED W/ THUMBNAIL
 
 function commandFilter(content) {
-  const user = content.user;
+  const user = User.GetInfo(content.user.id);
   const msg = content.msg;
-  const commandArray = [];
-  const args = [];
-
-  let command;
-
-  if (msg.split(' ').length > 1) {
-    commandArray.push(...msg.split(' '));
-    command = commandArray[0];
-    commandArray.shift();
-    args.push(...commandArray);
-  } else {
-    command = msg;
-  }
+  const [command, args] = [...splitMsg(msg)];
 
   switch (command) {
     /*-----> TESTING <-----*/

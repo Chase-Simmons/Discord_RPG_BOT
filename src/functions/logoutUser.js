@@ -1,14 +1,17 @@
-const User = require('../modules/User');
 const dispatch = require('../re:Discord/.root.js');
 
 function logoutUser(incomingUser) {
-  let rep = 'has successfully logged out.';
-  const user = User.GetInfo(incomingUser.id);
+  let rep;
 
-  if (user !== false) {
-    if (user.online_status === 'online') {
-      user.online_status = 'offline';
-      dispatch({ action: 'LOGOUT', call: 'PUT', payload: user.discord_id });
+  if (incomingUser !== false) {
+    if (incomingUser.online_status === 'online') {
+      incomingUser.online_status = 'offline';
+      rep = 'has successfully logged out.';
+      dispatch({
+        action: 'LOGOUT',
+        call: 'PUT',
+        payload: incomingUser.discord_id,
+      });
     } else {
       rep = 'you are not currently logged in. There is no need to log out.';
     }

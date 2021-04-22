@@ -1,14 +1,18 @@
-const User = require('../modules/User');
 const dispatch = require('../re:Discord/.root.js');
 
 function loginUser(incomingUser) {
-  let rep = 'has successfully logged in.';
-  const user = User.GetInfo(incomingUser.id);
+  let rep;
+  console.table(incomingUser);
 
-  if (user !== false) {
-    if (user.online_status === 'offline') {
-      user.online_status = 'online';
-      dispatch({ action: 'LOGIN', call: 'PUT', payload: user.discord_id });
+  if (incomingUser !== false) {
+    if (incomingUser.online_status === 'offline') {
+      incomingUser.online_status = 'online';
+      rep = 'has successfully logged in.';
+      dispatch({
+        action: 'LOGIN',
+        call: 'PUT',
+        payload: incomingUser.discord_id,
+      });
     } else {
       rep = 'you are currently logged in. There is no need to log in again.';
     }
