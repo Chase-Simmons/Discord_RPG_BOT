@@ -42,13 +42,5 @@ function selectSwitch(content) {
 }
 
 module.exports = (content) => {
-  if (User.LoginCheck(content.user.id) === true) {
-    content.user = User.GetInfo(content.user.id);
-    return selectSwitch(content);
-  } else {
-    return {
-      content: 'you are not logged in. Please **login** first.',
-      statusCode: 1,
-    };
-  }
+  return selectSwitch(content);
 };

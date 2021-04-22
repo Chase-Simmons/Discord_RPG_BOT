@@ -21,12 +21,28 @@ const move = require('./move');
 
 const User = require('../modules/User');
 const splitMsg = require('./QoCL/splitMsg');
+const { LoginCheck } = require('../modules/User');
 
 // STATUS CODES
 // 0 = NORMAL
 // 1 = REPLY
 // 2 = EMBED NO THUMBNAIL
 // 3 = EMBED W/ THUMBNAIL
+
+function requireLogin({ user, args = '' }, F) {
+  if (user.online_status === 'online') {
+    return F(user || { user, args });
+  } else {
+    return notLoggedInMsg;
+  }
+}
+
+function notLoggedInMsg() {
+  return {
+    content: 'you are not logged in. Please **login** first.',
+    statusCode: 1,
+  };
+}
 
 function commandFilter(content) {
   const user = User.GetInfo(content.user.id);
@@ -61,11 +77,13 @@ function commandFilter(content) {
 
     /*-----> REGISTRATION <-----*/
     case 'register':
-      const Register = register(user);
-      return {
-        reply: Register.content,
-        statusCode: Register.statusCode,
-      };
+      return requireLogin(user, (user) => {
+        const Register = register(user);
+        return {
+          reply: Register.content,
+          statusCode: Register.statusCode,
+        };
+      });
     /*-----> REGISTRATION <-----*/
 
     /*-----> HELP <-----*/
@@ -80,13 +98,17 @@ function commandFilter(content) {
 
     /*-----> SELECT <-----*/
     case 'select':
-      const Select = select({ user, args });
-      return { reply: Select.content, statusCode: Select.statusCode };
+      return requireLogin({ user, args }, ({ user, args }) => {
+        const Select = select({ user, args });
+        return { reply: Select.content, statusCode: Select.statusCode };
+      });
     /*-----> SELECT <-----*/
 
     case 'move':
-      const Move = move({ user, args });
-      return { reply: Move.content, statusCode: Move.statusCode };
+      return requireLogin({ user, args }, ({ user, args }) => {
+        const Move = move({ user, args });
+        return { reply: Move.content, statusCode: Move.statusCode };
+      });
     /*-----> NO MATCH <-----*/
     default:
       return {

@@ -16,12 +16,5 @@ function move(content) {
 }
 
 module.exports = (content) => {
-  if (User.LoginCheck(content.user.id) === true) {
-    return move(content);
-  } else {
-    return {
-      content: 'you are not logged in. Please **login** first.',
-      statusCode: 1,
-    };
-  }
+  return move(content);
 };
