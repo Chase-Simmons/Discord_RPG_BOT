@@ -8,6 +8,11 @@ function move(content) {
   let rep = { content: `has successfully moved to **${arg}**.`, statusCode: 1 };
 
   if (User.Move(user.id, arg) === true) {
+    dispatch({
+      action: 'MOVE',
+      call: 'PUT',
+      payload: { user: user.discord_id, location: arg },
+    });
   } else {
     rep = { content: `could not move to **${arg}**.`, statusCode: 1 };
   }

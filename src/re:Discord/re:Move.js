@@ -14,6 +14,15 @@ module.exports = (data) => {
     case 'DELETE':
       break;
     case 'PUT':
+      eSQL
+        .Update('character_locations')
+        .Set('map', payload.location)
+        .Where('discord_id', payload.user)
+        .Query()
+        .Then((res) => {
+          User.GetInfo(payload.user).map = payload.location;
+          console.table(User.GetInfo(payload.user));
+        });
       break;
   }
 };
