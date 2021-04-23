@@ -1,9 +1,5 @@
-const info = require('../modules/info');
-
-const mapping = [
-  { name: 'deep sea port', connects: ['heros square'] },
-  { name: 'heros square', connects: ['deep sea port'] },
-];
+const info = require('./info');
+const Locations = require('./Locations');
 
 class UserEvent {
   static tfResponse;
@@ -30,13 +26,12 @@ class UserEvent {
 
   Move(userID = '', map = '') {
     this.GetInfo(userID);
-    mapping.forEach((location) => {
+    Locations.forEach((location) => {
       if (location.name === this.userData.map) {
         location.connects.forEach((connection) => {
           if (connection === map) {
             this.tfResponse = true;
-            return;
-          } else {
+          } else if (this.tfResponse !== true) {
             this.tfResponse = false;
           }
         });
