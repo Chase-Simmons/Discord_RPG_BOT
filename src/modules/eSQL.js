@@ -117,6 +117,10 @@ class eSQL {
     queryText += ` RIGHT JOIN "${what}" ON "${onTable}"."${onTableColumn}" = "${what}"."${whatColumn}"`;
     return this;
   }
+  Group(by = '', byColumn = '') {
+    queryText += ` GROUP BY "${by}"."${byColumn}"`;
+    return this;
+  }
   Order(by = '', byColumn = '', direction = '') {
     queryText += ` ORDER BY "${by}"."${byColumn}" ${direction.toUpperCase()}`;
     return this;
