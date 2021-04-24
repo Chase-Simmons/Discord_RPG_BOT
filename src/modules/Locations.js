@@ -11,19 +11,25 @@ const w = 'weapon shop';
 const hS = 'heros square';
 const tA = 'twilight alley';
 
+const cT = 'city';
+const dG = 'dungeon';
+
 module.exports = [
   {
     name: 'deep sea port',
+    type: cT,
     connects: [hS, 'shady path'],
     subLocations: [b, i],
   },
   {
     name: 'shady path',
+    type: cT,
     connects: ['deep sea port', tA],
     subLocations: [],
   },
   {
     name: 'heros square',
+    type: cT,
     connects: [
       'deep sea port',
       tA,
@@ -46,6 +52,7 @@ module.exports = [
   },
   {
     name: 'twilight alley',
+    type: cT,
     connects: [
       hS,
       'caligrase sewers',
@@ -66,25 +73,42 @@ module.exports = [
   },
   {
     name: 'bustling market',
+    type: cT,
     connects: ['heros square', 'ministry of arcanum'],
     subLocations: [j, iv, w, a, m, b],
   },
   {
     name: 'ministry of arcanum',
+    type: cT,
     connects: ['bustling market'],
     subLocations: [],
   },
-  { name: 'caligrase sewers', connects: [hS, tA], subLocations: [] },
-  { name: 'deltis keep', connects: [hS, tA], subLocations: [] },
-  { name: 'golden dragon ruins', connects: [hS, tA], subLocations: [] },
-  { name: 'aria reservoir', connects: [hS, tA], subLocations: [] },
-  { name: 'temple of oblivion', connects: [hS, tA], subLocations: [] },
-  { name: 'old sewers', connects: [hS, tA], subLocations: [] },
-  { name: 'underground dragoon ruins', connects: [hS, tA], subLocations: [] },
-  { name: 'descension ruins', connects: [hS, tA], subLocations: [] },
-  { name: 'roswald deep fort', connects: [hS, tA], subLocations: [] },
-  { name: 'ruined chamber', connects: [hS, tA], subLocations: [] },
-  { name: 'facility 13', connects: [hS, tA], subLocations: [] },
-  { name: 'dark roundtable', connects: [hS, tA], subLocations: [] },
-  { name: 'sangent ruins', connects: [hS, tA], subLocations: [] },
+  { name: 'caligrase sewers', type: dG, connects: [hS, tA], subLocations: [] },
+  { name: 'deltis keep', type: dG, connects: [hS, tA], subLocations: [] },
+  {
+    name: 'golden dragon ruins',
+    type: dG,
+    connects: [hS, tA],
+    subLocations: [],
+  },
+  { name: 'aria reservoir', type: dG, connects: [hS, tA], subLocations: [] },
+  {
+    name: 'temple of oblivion',
+    type: dG,
+    connects: [hS, tA],
+    subLocations: [],
+  },
+  { name: 'old sewers', type: dG, connects: [hS, tA], subLocations: [] },
+  {
+    name: 'underground dragoon ruins',
+    type: dG,
+    connects: [hS, tA],
+    subLocations: [],
+  },
+  { name: 'descension ruins', type: dG, connects: [hS, tA], subLocations: [] },
+  { name: 'roswald deep fort', type: dG, connects: [hS, tA], subLocations: [] },
+  { name: 'ruined chamber', type: dG, connects: [hS, tA], subLocations: [] },
+  { name: 'facility 13', type: dG, connects: [hS, tA], subLocations: [] },
+  { name: 'dark roundtable', type: dG, connects: [hS, tA], subLocations: [] },
+  { name: 'sangent ruins', type: dG, connects: [hS, tA], subLocations: [] },
 ];

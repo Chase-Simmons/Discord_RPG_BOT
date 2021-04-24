@@ -18,6 +18,7 @@ const select = require('./select');
 /*-----> SELECT <-----*/
 
 const move = require('./move');
+const city = require('./city');
 
 const User = require('../modules/User');
 const splitMsg = require('./QoCL/splitMsg');
@@ -73,7 +74,7 @@ function commandFilter(content) {
 
     /*-----> REGISTRATION <-----*/
     case 'register':
-      return requireLogin(user, () => {
+      return requireLogin({ user }, () => {
         const Register = register(user);
         return {
           reply: Register.content,
@@ -104,6 +105,12 @@ function commandFilter(content) {
       return requireLogin({ user, args }, () => {
         const Move = move({ user, args });
         return { reply: Move.content, statusCode: Move.statusCode };
+      });
+
+    case 'city':
+      return requireLogin({ user }, () => {
+        const City = city(user);
+        return { reply: City.content, statusCode: 2 };
       });
     /*-----> NO MATCH <-----*/
     default:
