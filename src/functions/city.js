@@ -18,11 +18,13 @@ function cityLocations() {
     if (location.type === 'city') {
       citiesLocationsArray.push({
         name: location.name.toUpperCase(),
-        value: `*connects to* : ***${location.connects.join('***, ***')}***`,
+        value: `*connects to* : ***${location.connects.join('***, ***')}***.
+        *places of interest* : ***${location.subLocations.join(
+          '***, ***'
+        )}***.`,
       });
     }
   });
-  console.log(citiesLocationsArray);
 
   const rep = {
     content: {

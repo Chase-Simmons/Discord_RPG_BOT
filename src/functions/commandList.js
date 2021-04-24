@@ -22,20 +22,9 @@ module.exports = {
   title: 'Command List',
   fields: [
     {
-      name: ' | row 1 |',
-      value: '```yaml\nlogin\nlogout\ncommands\nplaceholder\nplaceholder\n```',
-      inline: true,
-    },
-    {
-      name: ' | row 2 |',
+      name: '**/rpg [command]**',
       value:
-        '```yaml\nplaceholder\nplaceholder\nplaceholder\nplaceholder\nplaceholder\n```',
-      inline: true,
-    },
-    {
-      name: ' | row 3 |',
-      value:
-        '```yaml\nplaceholder\nplaceholder\nplaceholder\nplaceholder\nplaceholder\n```',
+        '```yaml\nlogin\nlogout\ncommands\ncity\nselect class [class name]\nmove [location name]```',
       inline: true,
     },
   ],

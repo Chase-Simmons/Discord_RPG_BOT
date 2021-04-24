@@ -7,6 +7,7 @@ const j = 'jeweller';
 const m = 'magic shop';
 const t = 'tavern';
 const w = 'weapon shop';
+const n = 'none';
 
 const hS = 'heros square';
 const tA = 'twilight alley';
@@ -25,7 +26,7 @@ module.exports = [
     name: 'shady path',
     type: cT,
     connects: ['deep sea port', tA],
-    subLocations: [],
+    subLocations: [n],
   },
   {
     name: 'heros square',
@@ -81,7 +82,7 @@ module.exports = [
     name: 'ministry of arcanum',
     type: cT,
     connects: ['bustling market'],
-    subLocations: [],
+    subLocations: [n],
   },
   { name: 'caligrase sewers', type: dG, connects: [hS, tA], subLocations: [] },
   { name: 'deltis keep', type: dG, connects: [hS, tA], subLocations: [] },
