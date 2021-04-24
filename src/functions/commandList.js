@@ -24,7 +24,7 @@ module.exports = {
     {
       name: '**/rpg [command]**',
       value:
-        '```yaml\nlogin\nlogout\ncommands\ncity\nselect class [class name]\nmove [location name]```',
+        '```yaml\nlogin\nlogout\nregister\ncity\nselect class [class name]\nmove [location name]```',
       inline: true,
     },
   ],
