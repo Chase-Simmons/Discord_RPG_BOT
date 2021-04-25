@@ -22,7 +22,6 @@ const city = require('./city');
 
 const User = require('../modules/User');
 const splitMsg = require('./QoCL/splitMsg');
-const { LoginCheck } = require('../modules/User');
 
 // STATUS CODES
 // 0 = NORMAL
@@ -30,24 +29,37 @@ const { LoginCheck } = require('../modules/User');
 // 2 = EMBED NO THUMBNAIL
 // 3 = EMBED W/ THUMBNAIL
 
-function requireLogin({ user, args = '' }, F) {
+function isLoggedIn(user) {
   if (user.online_status === 'online') {
-    return F(user || { user, args });
+    return true;
   } else {
-    return {
-      reply: 'you are not logged in. Please **login** first.',
-      statusCode: 1,
-    };
+    return false;
   }
 }
 
-class CommandHandler {
-  static #loginRequired() {
-    console.log('in');
-    return true;
-  }
+const notLoggedInMessage = {
+  reply: 'you are not logged in. Please **login** first.',
+  statusCode: 1,
+};
 
-  static test({}) {
+const noCommandMatch = {
+  reply: 'This did not match any commands.',
+  statusCode: 0,
+};
+
+function prepareCommand(content) {
+  const user = User.GetInfo(content.user.id);
+  const msg = content.msg;
+  const [command, args] = [...splitMsg(msg)];
+  const handle = CommandHandler[command];
+
+  if (handle === undefined) return noCommandMatch;
+
+  return handle({ user, args });
+}
+
+class CommandHandler {
+  static test() {
     return {
       reply: {
         title: 'Test',
@@ -58,7 +70,6 @@ class CommandHandler {
     };
   }
   static login({ user }) {
-    this.#loginRequired();
     return {
       reply: loginUser(user),
       statusCode: 1,
@@ -70,76 +81,36 @@ class CommandHandler {
       statusCode: 1,
     };
   }
-  static register({ user }) {
-    return loginRequired({ user }, () => {
-      const Register = register(user);
-      return {
-        reply: Register.content,
-        statusCode: Register.statusCode,
-      };
-    });
+  static commands() {
+    return {
+      reply: commandList,
+      statusCode: 2,
+    };
   }
-}
+  static register({ user }) {
+    if (isLoggedIn(user) === false) return notLoggedInMessage;
+    const Register = register(user);
+    return {
+      reply: Register.content,
+      statusCode: Register.statusCode,
+    };
+  }
+  static select({ user, args }) {
+    if (isLoggedIn(user) === false) return notLoggedInMessage;
+    const Select = select({ user, args });
+    return { reply: Select.content, statusCode: Select.statusCode };
+  }
 
-function prepareCommand(content) {
-  const user = User.GetInfo(content.user.id);
-  const msg = content.msg;
-  const [command, args] = [...splitMsg(msg)];
-  const handle = CommandHandler[command];
+  static move({ user, args }) {
+    if (isLoggedIn(user) === false) return notLoggedInMessage;
+    const Move = move({ user, args });
+    return { reply: Move.content, statusCode: Move.statusCode };
+  }
 
-  return handle({ user, args });
-
-  switch (command) {
-    /*-----> TESTING <-----*/
-
-    /*-----> TESTING <-----*/
-
-    /*-----> LOGIN/OUT <-----*/
-
-    case 'logout':
-
-    /*-----> LOGIN/OUT <-----*/
-
-    /*-----> REGISTRATION <-----*/
-    case 'register':
-    /*-----> REGISTRATION <-----*/
-
-    /*-----> HELP <-----*/
-    case 'c':
-    case 'command':
-    case 'commands':
-      return {
-        reply: commandList,
-        statusCode: 2,
-      };
-    /*-----> HELP <-----*/
-
-    /*-----> SELECT <-----*/
-    case 'select':
-      return requireLogin({ user, args }, () => {
-        const Select = select({ user, args });
-        return { reply: Select.content, statusCode: Select.statusCode };
-      });
-    /*-----> SELECT <-----*/
-
-    case 'move':
-      return requireLogin({ user, args }, () => {
-        const Move = move({ user, args });
-        return { reply: Move.content, statusCode: Move.statusCode };
-      });
-
-    case 'city':
-      return requireLogin({ user }, () => {
-        const City = city(user);
-        return { reply: City.content, statusCode: 2 };
-      });
-    /*-----> NO MATCH <-----*/
-    default:
-      return {
-        reply: 'This did not match any commands.',
-        statusCode: 0,
-      };
-    /*-----> NO MATCH <-----*/
+  static city({ user }) {
+    if (isLoggedIn(user) === false) return notLoggedInMessage;
+    const City = city(user);
+    return { reply: City.content, statusCode: 2 };
   }
 }
 
