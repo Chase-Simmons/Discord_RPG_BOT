@@ -2,6 +2,11 @@ const info = require('./info');
 const Locations = require('./Locations');
 
 class UserEvent {
+  render() {
+    console.log('hello');
+    return;
+  }
+
   static tfResponse;
   static userData;
   static loggedIn = false;

@@ -41,46 +41,67 @@ function requireLogin({ user, args = '' }, F) {
   }
 }
 
-function commandFilter(content) {
+class CommandHandler {
+  static #loginRequired() {
+    console.log('in');
+    return true;
+  }
+
+  static test({}) {
+    return {
+      reply: {
+        title: 'Test',
+        description: 'This is a test',
+        fields: [{ name: 'test1', value: 'Test successfully completed!' }],
+      },
+      statusCode: 3,
+    };
+  }
+  static login({ user }) {
+    this.#loginRequired();
+    return {
+      reply: loginUser(user),
+      statusCode: 1,
+    };
+  }
+  static logout({ user }) {
+    return {
+      reply: logoutUser(user),
+      statusCode: 1,
+    };
+  }
+  static register({ user }) {
+    return loginRequired({ user }, () => {
+      const Register = register(user);
+      return {
+        reply: Register.content,
+        statusCode: Register.statusCode,
+      };
+    });
+  }
+}
+
+function prepareCommand(content) {
   const user = User.GetInfo(content.user.id);
   const msg = content.msg;
   const [command, args] = [...splitMsg(msg)];
+  const handle = CommandHandler[command];
+
+  return handle({ user, args });
 
   switch (command) {
     /*-----> TESTING <-----*/
-    case 'test':
-      return {
-        reply: {
-          title: 'Test',
-          description: 'This is a test',
-          fields: [{ name: 'test1', value: 'Test successfully completed!' }],
-        },
-        statusCode: 3,
-      };
+
     /*-----> TESTING <-----*/
 
     /*-----> LOGIN/OUT <-----*/
-    case 'login':
-      return {
-        reply: loginUser(user),
-        statusCode: 1,
-      };
+
     case 'logout':
-      return {
-        reply: logoutUser(user),
-        statusCode: 1,
-      };
+
     /*-----> LOGIN/OUT <-----*/
 
     /*-----> REGISTRATION <-----*/
     case 'register':
-      return requireLogin({ user }, () => {
-        const Register = register(user);
-        return {
-          reply: Register.content,
-          statusCode: Register.statusCode,
-        };
-      });
     /*-----> REGISTRATION <-----*/
 
     /*-----> HELP <-----*/
@@ -123,5 +144,5 @@ function commandFilter(content) {
 }
 
 module.exports = (content) => {
-  return commandFilter(content);
+  return prepareCommand(content);
 };
