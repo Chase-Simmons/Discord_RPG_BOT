@@ -4,4 +4,4 @@ RPG BOT takes many elements from the game Wizardry Online, and it's reverse engi
 
 # How to Play
 
-access the testing discord at: https://discord.gg/jWQeR8CqZG
+access the test server at: https://discord.gg/jWQeR8CqZG

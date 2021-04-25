@@ -10,30 +10,34 @@ function dispatch(dataObj) {
   const action = dataObj.action;
   const data = { call: dataObj.call, payload: dataObj.payload };
 
-  switch (action) {
-    case 'LOGIN':
-      login(data);
-      break;
-    case 'LOGOUT':
-      logout(data);
-      break;
-    case 'USER':
-      user(data);
-      break;
-    case 'REGISTER':
-      register(data);
-      break;
-    case 'CHARACTER':
-      character(data);
-      break;
-    case 'MOVE':
-      move(data);
-      break;
-    default:
-      break;
-  }
+  const handle = Route[action];
+
+  if (handle === undefined) return;
+
+  handle(data);
 
   return;
+}
+
+class Route {
+  static LOGIN(data) {
+    login(data);
+  }
+  static LOGOUT(data) {
+    logout(data);
+  }
+  static USER(data) {
+    user(data);
+  }
+  static REGISTER(data) {
+    register(data);
+  }
+  static CHARACTER(data) {
+    character(data);
+  }
+  static MOVE(data) {
+    move(data);
+  }
 }
 
 module.exports = (dataObj) => {
