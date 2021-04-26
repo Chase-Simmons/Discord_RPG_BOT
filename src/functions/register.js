@@ -1,11 +1,12 @@
 const serverInfo = require('../modules/info');
 const dispatch = require('../re:Discord/.root.js');
 
-function register(incomingUser) {
+function register(content) {
+  const [userID, author] = [content.discord_.id, content.discord_.username];
   let match = false;
   let statusCode = 2;
   let reply = {
-    title: `${incomingUser.username} has successfully registered.`,
+    title: `${author} has successfully registered.`,
     description: 'Please **login** and **select class** for your character',
     fields: [
       {
@@ -18,7 +19,7 @@ function register(incomingUser) {
   };
 
   serverInfo.allUsers.forEach((user) => {
-    if (user.id === incomingUser.id) {
+    if (user.discord_id === userID) {
       match = true;
     }
   });
@@ -28,19 +29,17 @@ function register(incomingUser) {
       action: 'REGISTER',
       call: 'POST',
       payload: {
-        id: incomingUser.id,
-        username: incomingUser.username,
+        id: userID,
+        username: author,
         loginStatus: 'offline',
       },
     });
-
-    // create(incomingUser);
   } else {
     [reply, statusCode] = [`you are already registered.`, 1];
   }
   return { reply, statusCode };
 }
 
-module.exports = (incomingUser) => {
-  return register(incomingUser);
+module.exports = (content) => {
+  return register(content);
 };

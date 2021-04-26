@@ -4,7 +4,7 @@ function loginUser(incomingUser) {
   let reply;
   console.table(incomingUser);
 
-  if (incomingUser !== false) {
+  if (typeof incomingUser !== 'string') {
     if (incomingUser.online_status === 'offline') {
       incomingUser.online_status = 'online';
       reply = 'has successfully logged in.';

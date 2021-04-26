@@ -8,6 +8,8 @@ module.exports = (data) => {
   const payload = data.payload;
   const values = payload.character;
 
+  const user = User.GetInfo(payload.user);
+
   switch (call) {
     case 'GET':
       break;
@@ -43,11 +45,28 @@ module.exports = (data) => {
           values.arcane,
           values.piety,
         ])
-        .Query();
+        .Query()
+        .Then(() => {
+          user.class = values.class;
+          user.maxHP = values.maxHP;
+          user.currentHP = values.currentHP;
+          user.maxMana = values.maxMana;
+          user.currentMana = values.currentMana;
+          user.strength = values.strength;
+          user.dexterity = values.dexterity;
+          user.vitality = values.vitality;
+          user.defence = values.defence;
+          user.agility = values.agility;
+          user.arcane = values.arcane;
+          user.piety = values.piety;
+        });
       eSQL
         .Insert('character_locations', ['discord_id', 'map'])
         .Values([payload.user, 'deep sea port'])
-        .Query();
+        .Query()
+        .Then(() => {
+          user.map = 'deep sea port';
+        });
       eSQL
         .Insert('character_leveling', [
           'discord_id',
@@ -56,7 +75,12 @@ module.exports = (data) => {
           'needed_exp',
         ])
         .Values([payload.user, 1, 0, expAlg(1)])
-        .Query();
+        .Query()
+        .Then(() => {
+          user.level = 1;
+          user.current_exp = 0;
+          user.needed_exp = expAlg(1);
+        });
 
       break;
     case 'DELETE':

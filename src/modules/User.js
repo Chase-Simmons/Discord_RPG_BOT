@@ -10,10 +10,10 @@ class UserEvent {
   GetInfo(userID = '') {
     info.allUsers.forEach((user) => {
       if (user.discord_id === userID) {
-        userData = user;
+        this.userData = user;
       }
     });
-    return userData || false;
+    return this.userData || userID;
   }
 
   LoginCheck(userID = '') {

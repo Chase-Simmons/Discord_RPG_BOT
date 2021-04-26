@@ -15,7 +15,7 @@ function selectClass({ user, value }) {
     valueCheck = true;
   }
 
-  if (user.character === null && valueCheck === true) {
+  if (user.class === null && valueCheck === true) {
     generateClassInfo({ user, class: value });
     reply = `has selected the class of **${value}**.`;
   } else if (valueCheck === false) {

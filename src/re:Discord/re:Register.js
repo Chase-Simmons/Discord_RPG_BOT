@@ -12,7 +12,14 @@ module.exports = (data) => {
       eSQL
         .Insert('users', ['discord_id', 'username', 'online_status'])
         .Values([payload.id, payload.username, payload.loginStatus])
-        .Query();
+        .Query()
+        .Then(() => {
+          info.allUsers.push({
+            discord_id: payload.id,
+            username: payload.username,
+            online_status: 'offline',
+          });
+        });
       break;
     case 'DELETE':
       break;

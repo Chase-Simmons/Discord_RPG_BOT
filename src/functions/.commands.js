@@ -49,13 +49,14 @@ const noCommandMatch = {
 };
 
 function prepareCommand(content) {
+  const discord_ = content.user;
   const [user, msg] = [User.GetInfo(content.user.id), content.msg];
   const [command, args] = [...splitMsg(msg)];
   const handle = CommandHandler[command];
 
   if (handle === undefined) return noCommandMatch;
 
-  return handle({ user, args });
+  return handle({ user, args, discord_ });
 }
 
 class CommandHandler {
@@ -71,8 +72,8 @@ class CommandHandler {
   static commands() {
     return commandList;
   }
-  static register({ user }) {
-    return register(user);
+  static register({ discord_ }) {
+    return register({ discord_ });
   }
   static select({ user, args }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
