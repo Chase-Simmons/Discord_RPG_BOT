@@ -1,23 +1,19 @@
 const info = require('./info');
 const Locations = require('./Locations');
+const expAlg = require('../functions/Core/expAlg');
 
 class UserEvent {
-  render() {
-    console.log('hello');
-    return;
-  }
-
-  static tfResponse;
   static userData;
+  static tfResponse;
   static loggedIn = false;
 
   GetInfo(userID = '') {
     info.allUsers.forEach((user) => {
       if (user.discord_id === userID) {
-        this.userData = user;
+        userData = user;
       }
     });
-    return this.userData || false;
+    return userData || false;
   }
 
   LoginCheck(userID = '') {
@@ -43,6 +39,19 @@ class UserEvent {
       }
     });
     return this.tfResponse;
+  }
+
+  AddExp(userID = '', incomingExp) {
+    this.GetInfo(userID);
+
+    if (
+      (this.userData.current_exp += incomingExp) >= expAlg(this.userData.level)
+    ) {
+      this.userData.needed_exp =
+        expAlg(this.userData.level) + expAlg(this.userData.level + 1);
+      this.userData.level++;
+    }
+    this.userData.current_exp += incomingExp;
   }
 }
 

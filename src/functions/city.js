@@ -36,6 +36,6 @@ function cityLocations() {
 
   return { reply, statusCode };
 }
-module.exports = (incomingUser) => {
+module.exports = () => {
   return cityLocations();
 };

@@ -78,15 +78,13 @@ class CommandHandler {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
     return select({ user, args });
   }
-
   static move({ user, args }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
     return move({ user, args });
   }
-
   static city({ user }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
-    return city(user);
+    return city();
   }
 }
 

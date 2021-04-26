@@ -13,6 +13,7 @@ module.exports = (data) => {
         .Select([
           { users: ['discord_id', 'username', 'online_status'] },
           { character_locations: ['map'] },
+          { character_leveling: ['current_exp', 'needed_exp', 'level'] },
           {
             character: [
               'class',
@@ -33,6 +34,7 @@ module.exports = (data) => {
         .From('users')
         .LeftJoin('character_locations', 'users', 'discord_id', 'discord_id')
         .LeftJoin('character', 'users', 'discord_id', 'discord_id')
+        .LeftJoin('character_leveling', 'users', 'discord_id', 'discord_id')
         .Query()
         .Then((response) => {
           console.table(response.rows);

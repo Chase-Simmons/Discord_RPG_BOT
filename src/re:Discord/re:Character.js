@@ -1,6 +1,7 @@
 const eSQL = require('../modules/eSQL');
 const User = require('../modules/User');
 const info = require('../modules/info');
+const expAlg = require('../functions/Core/expAlg');
 
 module.exports = (data) => {
   const call = data.call;
@@ -42,18 +43,20 @@ module.exports = (data) => {
           values.arcane,
           values.piety,
         ])
-        .Query()
-        .Then((res) => {
-          eSQL
-            .Insert('character_locations', ['discord_id', 'map'])
-            .Values([payload.id, 'deep sea port'])
-            .Query()
-            .Then((res) => {
-              let user = User.GetInfo(payload.user);
-              user = { ...user, ...values };
-              console.table(user);
-            });
-        });
+        .Query();
+      eSQL
+        .Insert('character_locations', ['discord_id', 'map'])
+        .Values([payload.user, 'deep sea port'])
+        .Query();
+      eSQL
+        .Insert('character_leveling', [
+          'discord_id',
+          'level',
+          'current_exp',
+          'needed_exp',
+        ])
+        .Values([payload.user, 1, 0, expAlg(1)])
+        .Query();
 
       break;
     case 'DELETE':
