@@ -81,14 +81,12 @@ class CommandHandler {
 
   static move({ user, args }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
-    const Move = move({ user, args });
-    return { reply: Move.content, statusCode: Move.statusCode };
+    return move({ user, args });
   }
 
   static city({ user }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
-    const City = city(user);
-    return { reply: City.content, statusCode: 2 };
+    return city(user);
   }
 }
 

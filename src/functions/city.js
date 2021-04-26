@@ -26,23 +26,15 @@ function cityLocations() {
     }
   });
 
-  const rep = {
-    content: {
-      title: `City Locations`,
-      description: '',
-      fields: [
-        ...citiesLocationsArray,
-        // {
-        //   name: '***Classes***',
-        //   value:
-        //     '---> **warrior**\n---> **cleric**\n---> **rogue**\n---> **mage**\n---> **archer**',
-        //   inline: true,
-        // },
-      ],
-    },
+  const reply = {
+    title: `City Locations`,
+    description: '',
+    fields: [...citiesLocationsArray],
   };
 
-  return rep;
+  const statusCode = 2;
+
+  return { reply, statusCode };
 }
 module.exports = (incomingUser) => {
   return cityLocations();
