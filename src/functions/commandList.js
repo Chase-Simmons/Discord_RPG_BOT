@@ -19,13 +19,16 @@
 // bold italics ***text***
 
 module.exports = {
-  title: 'Command List',
-  fields: [
-    {
-      name: '**/rpg [command]**',
-      value:
-        '```yaml\nlogin\nlogout\nregister\ncity\nselect class [class name]\nmove [location name]```',
-      inline: true,
-    },
-  ],
+  reply: {
+    title: 'Command List',
+    fields: [
+      {
+        name: '**/rpg [command]**',
+        value:
+          '```yaml\nlogin\nlogout\nregister\ncity\nselect class [class name]\nmove [location name]```',
+        inline: true,
+      },
+    ],
+  },
+  statusCode: 2,
 };

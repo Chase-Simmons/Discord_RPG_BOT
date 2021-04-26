@@ -3,20 +3,18 @@ const dispatch = require('../re:Discord/.root.js');
 
 function register(incomingUser) {
   let match = false;
-  let rep = {
-    content: {
-      title: `${incomingUser.username} has successfully registered.`,
-      description: 'Please **login** and **select class** for your character',
-      fields: [
-        {
-          name: '***Classes***',
-          value:
-            '---> **warrior**\n---> **cleric**\n---> **rogue**\n---> **mage**\n---> **archer**',
-          inline: true,
-        },
-      ],
-    },
-    statusCode: 2,
+  let statusCode = 2;
+  let reply = {
+    title: `${incomingUser.username} has successfully registered.`,
+    description: 'Please **login** and **select class** for your character',
+    fields: [
+      {
+        name: '***Classes***',
+        value:
+          '---> **warrior**\n---> **cleric**\n---> **rogue**\n---> **mage**\n---> **archer**',
+        inline: true,
+      },
+    ],
   };
 
   serverInfo.allUsers.forEach((user) => {
@@ -38,9 +36,9 @@ function register(incomingUser) {
 
     // create(incomingUser);
   } else {
-    rep = { content: `you are already registered.`, statusCode: 1 };
+    [reply, statusCode] = [`you are already registered.`, 1];
   }
-  return rep;
+  return { reply, statusCode };
 }
 
 module.exports = (incomingUser) => {

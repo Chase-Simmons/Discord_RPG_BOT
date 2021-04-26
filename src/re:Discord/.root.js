@@ -13,9 +13,7 @@ function dispatch(dataObj) {
   const handle = Route[action];
 
   if (handle === undefined) return;
-
   handle(data);
-
   return;
 }
 

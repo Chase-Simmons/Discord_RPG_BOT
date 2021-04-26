@@ -19,6 +19,7 @@ const select = require('./select');
 
 const move = require('./move');
 const city = require('./city');
+const test = require('./test');
 
 const User = require('../modules/User');
 const splitMsg = require('./QoCL/splitMsg');
@@ -48,8 +49,7 @@ const noCommandMatch = {
 };
 
 function prepareCommand(content) {
-  const user = User.GetInfo(content.user.id);
-  const msg = content.msg;
+  const [user, msg] = [User.GetInfo(content.user.id), content.msg];
   const [command, args] = [...splitMsg(msg)];
   const handle = CommandHandler[command];
 
@@ -60,45 +60,23 @@ function prepareCommand(content) {
 
 class CommandHandler {
   static test() {
-    return {
-      reply: {
-        title: 'Test',
-        description: 'This is a test',
-        fields: [{ name: 'test1', value: 'Test successfully completed!' }],
-      },
-      statusCode: 3,
-    };
+    return test;
   }
   static login({ user }) {
-    return {
-      reply: loginUser(user),
-      statusCode: 1,
-    };
+    return loginUser(user);
   }
   static logout({ user }) {
-    return {
-      reply: logoutUser(user),
-      statusCode: 1,
-    };
+    return logoutUser(user);
   }
   static commands() {
-    return {
-      reply: commandList,
-      statusCode: 2,
-    };
+    return commandList;
   }
   static register({ user }) {
-    if (isLoggedIn(user) === false) return notLoggedInMessage;
-    const Register = register(user);
-    return {
-      reply: Register.content,
-      statusCode: Register.statusCode,
-    };
+    return register(user);
   }
   static select({ user, args }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
-    const Select = select({ user, args });
-    return { reply: Select.content, statusCode: Select.statusCode };
+    return select({ user, args });
   }
 
   static move({ user, args }) {

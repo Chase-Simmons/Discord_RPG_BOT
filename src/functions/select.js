@@ -1,46 +1,20 @@
-const User = require('../modules/User');
-const generateClassInfo = require('./generateClassInfo');
+const selectClass = require('./select/class');
 
-function selectClass(content) {
-  let valueCheck = false;
+const error = { reply: 'error during selection process', statusCode: 1 };
 
-  if (
-    content.value === 'warrior' ||
-    content.value === 'cleric' ||
-    content.value === 'rogue' ||
-    content.value === 'mage' ||
-    content.value === 'archer'
-  ) {
-    valueCheck = true;
-  }
+function prepareSelect(content) {
+  const [user, arg, value] = [content.user, content.args[0], content.args[1]];
+  if (arg === undefined) return error;
 
-  if (!content.user.character && valueCheck === true) {
-    generateClassInfo({ user: content.user, class: content.value });
-    return `has selected the class of **${content.value}**.`;
-  } else if (valueCheck === false) {
-    return `**${content.value}** does not match any of the available classes. Try using **classes** to see your options.`;
-  } else {
-    return `you have already selected the class of **${content.user.character.class}**.`;
-  }
+  const handle = SelectHandler[arg];
+  return handle({ user, value });
 }
 
-function selectSwitch(content) {
-  const user = content.user;
-  const arg = content.args[0];
-  const value = content.args[1];
-
-  let rep = { content: 'error during selection process', statusCode: 1 };
-
-  switch (arg) {
-    case 'class':
-      const Class = selectClass({ user, value });
-      rep = { content: Class, statusCode: 1 };
-      break;
+class SelectHandler {
+  static class({ user, value }) {
+    return selectClass({ user, value });
   }
-
-  return rep;
 }
-
 module.exports = (content) => {
-  return selectSwitch(content);
+  return prepareSelect(content);
 };

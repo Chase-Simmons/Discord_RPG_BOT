@@ -1,9 +1,8 @@
 const User = require('../modules/User');
 const dispatch = require('../re:Discord/.root.js');
 
-function move(content) {
-  const user = content.user;
-  const arg = content.args.join(' ');
+function move({ user, args }) {
+  const arg = args.join(' ');
 
   let rep = { content: `has successfully moved to **${arg}**.`, statusCode: 1 };
 

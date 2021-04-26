@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const dispatch = require('./re:Discord/.root.js');
 const botResponses = require('./botResponses');
 const commands = require('./functions/.commands');
-const reduceMessage = require('./functions/reduceMessage');
+const reduceMessage = require('./functions/QoCL/reduceMessage');
 
 let embed;
 
