@@ -9,22 +9,14 @@ function cityLocations() {
     'bustling market',
     'ministry of arcanum',
   ];
-  const citiesLocationsArray = [];
-
-  Locations.forEach((location) => {
-    location.connects = location.connects.filter((connection) =>
-      partsOfCity.includes(connection)
-    );
-    if (location.type === 'city') {
-      citiesLocationsArray.push({
-        name: location.name.toUpperCase(),
-        value: `*connects to* : ***${location.connects.join('***, ***')}***.
-        *places of interest* : ***${location.subLocations.join(
-          '***, ***'
-        )}***.`,
-      });
-    }
-  });
+  const citiesLocationsArray = Locations.filter(
+    (location) =>
+      partsOfCity.includes(location.name) && location.type === 'city'
+  ).map((location) => ({
+    name: location.name.toUpperCase(),
+    value: `*connects to* : ***${location.connects.join('***, ***')}***.
+      *places of interest* : ***${location.subLocations.join('***, ***')}***.`,
+  }));
 
   const reply = {
     title: `City Locations`,
