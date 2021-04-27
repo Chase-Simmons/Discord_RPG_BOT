@@ -53,7 +53,6 @@ function prepareCommand(content) {
   const [user, msg] = [User.GetInfo(content.user.id), content.msg];
   const [command, args] = [...splitMsg(msg)];
   const handle = CommandHandler[command];
-
   if (handle === undefined) return noCommandMatch;
 
   return handle({ user, args, discord_ });

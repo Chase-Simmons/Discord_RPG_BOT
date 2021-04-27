@@ -8,7 +8,9 @@ class UserEvent {
   static loggedIn = false;
 
   GetInfo(userID = '') {
-    this.userData = info.allUsers.filter((user) => user.discord_id === userID);
+    this.userData = info.allUsers.filter(
+      (user) => user.discord_id === userID
+    )[0];
 
     return this.userData || userID;
   }
