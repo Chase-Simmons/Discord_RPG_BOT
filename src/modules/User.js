@@ -8,11 +8,8 @@ class UserEvent {
   static loggedIn = false;
 
   GetInfo(userID = '') {
-    info.allUsers.forEach((user) => {
-      if (user.discord_id === userID) {
-        this.userData = user;
-      }
-    });
+    this.userData = info.allUsers.filter((user) => user.discord_id === userID);
+
     return this.userData || userID;
   }
 
