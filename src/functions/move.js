@@ -6,7 +6,7 @@ function move({ user, args }) {
   let reply = `has successfully moved to **${arg}**.`;
   let statusCode = 1;
 
-  if (User.Move(user.id, arg) === true) {
+  if (User.Move(user.discord_id, arg) === true) {
     dispatch({
       action: 'MOVE',
       call: 'PUT',
@@ -14,9 +14,8 @@ function move({ user, args }) {
     });
   } else {
     reply = `could not move to **${arg}**.`;
-
-    return { reply, statusCode };
   }
+  return { reply, statusCode };
 }
 
 module.exports = (content) => {

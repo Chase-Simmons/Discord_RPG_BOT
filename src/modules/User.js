@@ -12,6 +12,7 @@ class UserEvent {
       (user) => user.discord_id === userID
     )[0];
 
+    console.log(this.userData);
     return this.userData || userID;
   }
 
