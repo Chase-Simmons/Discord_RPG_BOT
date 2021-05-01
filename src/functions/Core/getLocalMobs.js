@@ -5,9 +5,11 @@ function getLocalMobs(incomingUser) {
 
   for (const [mobName, mobInfo] of Object.entries(mobs)) {
     if (incomingUser.map === mobInfo.map) {
-      console.log(`${mobName} located.`);
+      localMobs.push({ [mobName]: mobInfo });
     }
   }
+  console.log(localMobs);
+  return localMobs;
 }
 
 module.exports = getLocalMobs;
