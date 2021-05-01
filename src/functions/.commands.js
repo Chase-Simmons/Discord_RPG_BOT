@@ -20,6 +20,7 @@ const select = require('./select');
 const move = require('./move');
 const city = require('./city');
 const test = require('./test');
+const hunt = require('./hunt');
 
 const User = require('../modules/User');
 const splitMsg = require('./QoCL/splitMsg');
@@ -85,6 +86,10 @@ class CommandHandler {
   static city({ user }) {
     if (isLoggedIn(user) === false) return notLoggedInMessage;
     return city();
+  }
+  static hunt({ user }) {
+    if (isLoggedIn(user) === false) return notLoggedInMessage;
+    return hunt(user);
   }
 }
 
